@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockchain Exam Prep</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛓️</text></svg>">
+<style>
+:root{
+  --bg:#f4f7fb; --surface:#ffffff; --surface2:#e8eef6; --border:#d7e0ec;
+  --text:#1a2333; --muted:#5d6b80; --accent:#2563eb; --accent-soft:rgba(37,99,235,.09);
+  --green:#15803d; --green-soft:rgba(21,128,61,.10);
+  --red:#dc2626; --red-soft:rgba(220,38,38,.08);
+  --amber:#b45309; --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+.part-card,.mode-card,.opt,.result-card,.review-item,textarea{box-shadow:0 1px 3px rgba(26,35,51,.06)}
+html{font-size:16px}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+  line-height:1.55; min-height:100dvh;
+}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 64px}
+header{display:flex;align-items:center;gap:10px;padding:8px 0 20px}
+header .logo{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:none}
+header .logo svg{width:19px;height:19px;stroke:var(--accent)}
+header h1{font-size:1.05rem;font-weight:600;letter-spacing:.01em}
+header .sub{font-size:.8rem;color:var(--muted)}
+.hidden{display:none !important}
+
+/* ---------- home ---------- */
+.section-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 10px}
+.parts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:560px){.parts{grid-template-columns:repeat(3,1fr)}}
+.part-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 14px;cursor:pointer;text-align:left;color:var(--text);
+  transition:border-color .15s,transform .12s,background .15s;
+  display:flex;flex-direction:column;gap:4px;font:inherit;
+}
+.part-card:hover{border-color:var(--accent)}
+.part-card:active{transform:scale(.97)}
+.part-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.part-card .name{font-weight:600;font-size:1rem}
+.part-card .count{font-size:.8rem;color:var(--muted)}
+.part-card.all{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between}
+.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;cursor:pointer;color:var(--text);text-align:left;font:inherit;
+  transition:border-color .15s,background .15s;
+}
+.mode-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.mode-card .name{font-weight:600;font-size:.95rem}
+.mode-card .desc{font-size:.78rem;color:var(--muted);margin-top:3px}
+.start-btn{
+  margin-top:26px;width:100%;padding:15px;border:none;border-radius:var(--radius);
+  background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;font:inherit;font-weight:600;
+  transition:filter .15s,transform .12s;
+}
+.start-btn:hover{filter:brightness(1.1)}
+.start-btn:active{transform:scale(.98)}
+.start-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ---------- quiz ---------- */
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.quiz-top .counter{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.quit-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 12px;font-size:.8rem;cursor:pointer;font:inherit}
+.quit-btn:hover{color:var(--red);border-color:var(--red)}
+.progress{height:5px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-bottom:22px}
+.progress i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .25s ease-out}
+.q-meta{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.chip.type{background:var(--accent-soft);color:var(--accent)}
+.q-text{font-size:1.12rem;font-weight:600;line-height:1.45;margin-bottom:20px}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:13px 14px;cursor:pointer;color:var(--text);font:inherit;font-size:.95rem;
+  transition:border-color .15s,background .15s;
+}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt .mark{
+  flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;margin-top:1px;
+  transition:all .15s;
+}
+.opt.multi .mark{border-radius:6px}
+.opt.picked{border-color:var(--accent);background:var(--accent-soft)}
+.opt.picked .mark{border-color:var(--accent);background:var(--accent);color:#fff}
+.opt.correct{border-color:var(--green);background:var(--green-soft)}
+.opt.correct .mark{border-color:var(--green);background:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.opt.wrong .mark{border-color:var(--red);background:var(--red);color:#fff}
+.opt.missed{border-color:var(--green);border-style:dashed}
+textarea{
+  width:100%;min-height:96px;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:13px 14px;color:var(--text);font:inherit;font-size:.95rem;resize:vertical;
+}
+textarea:focus{outline:none;border-color:var(--accent)}
+.answer-box{
+  margin-top:14px;background:var(--green-soft);border:1px solid var(--green);
+  border-radius:12px;padding:13px 14px;font-size:.95rem;
+}
+.answer-box .lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:4px}
+.self-grade{display:flex;gap:10px;margin-top:14px}
+.self-grade button{
+  flex:1;padding:12px;border-radius:12px;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--text);transition:all .15s;
+}
+.self-grade .yes:hover{border-color:var(--green);color:var(--green)}
+.self-grade .no:hover{border-color:var(--red);color:var(--red)}
+.actions{margin-top:22px;display:flex;gap:10px}
+.btn{
+  flex:1;padding:14px;border-radius:12px;font:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+  border:none;background:var(--accent);color:#fff;transition:filter .15s,transform .12s;
+}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.35;cursor:not-allowed;filter:none}
+.btn.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.feedback{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:.92rem;font-weight:600}
+.feedback.ok{background:var(--green-soft);color:var(--green)}
+.feedback.bad{background:var(--red-soft);color:var(--red)}
+
+/* ---------- results ---------- */
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center}
+.score-ring{position:relative;width:150px;height:150px;margin:0 auto 16px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring .num b{font-size:2rem;font-variant-numeric:tabular-nums}
+.score-ring .num span{font-size:.75rem;color:var(--muted)}
+.result-line{color:var(--muted);font-size:.92rem;margin-bottom:20px}
+.review-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;text-align:left}
+.review-item.ok{border-left:3px solid var(--green)}
+.review-item.bad{border-left:3px solid var(--red)}
+.review-item .rq{font-weight:600;font-size:.92rem;margin-bottom:6px}
+.review-item .ra{font-size:.85rem;color:var(--muted)}
+.review-item .ra b{color:var(--green);font-weight:600}
+.review-item .ra .u{color:var(--red)}
+footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:40px}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+    <div>
+      <h1>Blockchain Exam Prep</h1>
+      <div class="sub" id="header-sub">115 questions · Parts A–E</div>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <div id="home">
+    <div class="section-label">Choose a part</div>
+    <div class="parts" id="parts"></div>
+    <div class="section-label">Mode</div>
+    <div class="mode-row">
+      <button class="mode-card selected" data-mode="practice">
+        <div class="name">Practice</div>
+        <div class="desc">Instant feedback after each question</div>
+      </button>
+      <button class="mode-card" data-mode="exam">
+        <div class="name">Exam</div>
+        <div class="desc">Results shown at the end</div>
+      </button>
+    </div>
+    <button class="start-btn" id="start" disabled>Start quiz</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="hidden">
+    <div class="quiz-top">
+      <span class="counter" id="counter"></span>
+      <button class="quit-btn" id="quit">Exit</button>
+    </div>
+    <div class="progress"><i id="bar" style="width:0%"></i></div>
+    <div class="q-meta" id="qmeta"></div>
+    <div class="q-text" id="qtext"></div>
+    <div id="qbody"></div>
+    <div id="feedback"></div>
+    <div class="actions" id="actions"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="hidden"></div>
+
+  <footer>Good luck on the exam 🍀</footer>
+</div>
+
+<script src="questions.js"></script>
+<script>
+const DATA = window.QUIZ_DATA;
+const $ = id => document.getElementById(id);
+const LETTERS = 'ABCDEFGH';
+
+let selPart = null, selMode = 'practice';
+let quiz = [], idx = 0, results = [];
+let picked = new Set(), revealed = false;
+
+/* ---------- home ---------- */
+const partsEl = $('parts');
+const parts = Object.keys(DATA);
+const allCount = parts.reduce((s,p)=>s+DATA[p].length,0);
+$('header-sub').textContent = `${allCount} questions · Parts ${parts[0]}–${parts[parts.length-1]}`;
+parts.forEach(p=>{
+  const b=document.createElement('button');
+  b.className='part-card'; b.dataset.part=p;
+  b.innerHTML=`<span class="name">Part ${p}</span><span class="count">${DATA[p].length} questions</span>`;
+  partsEl.appendChild(b);
+});
+const allBtn=document.createElement('button');
+allBtn.className='part-card all'; allBtn.dataset.part='ALL';
+allBtn.innerHTML=`<span class="name">🔥 All parts — full mix</span><span class="count">${allCount} questions</span>`;
+partsEl.appendChild(allBtn);
+
+partsEl.addEventListener('click',e=>{
+  const card=e.target.closest('.part-card'); if(!card) return;
+  partsEl.querySelectorAll('.part-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected'); selPart=card.dataset.part;
+  $('start').disabled=false;
+});
+document.querySelectorAll('.mode-card').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));
+  b.classList.add('selected'); selMode=b.dataset.mode;
+}));
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+$('start').addEventListener('click',()=>{
+  let pool=[];
+  if(selPart==='ALL') parts.forEach(p=>DATA[p].forEach(q=>pool.push({...q,part:p})));
+  else DATA[selPart].forEach(q=>pool.push({...q,part:selPart}));
+  quiz = shuffle(pool).map(q=>{
+    if(!q.options.length) return q;
+    const order=shuffle(q.options.map((_,i)=>i));
+    return {...q,
+      options:order.map(i=>q.options[i]),
+      correct:q.correct.map(c=>order.indexOf(c))};
+  });
+  idx=0; results=[];
+  $('home').classList.add('hidden'); $('results').classList.add('hidden');
+  $('quiz').classList.remove('hidden');
+  render();
+});
+
+$('quit').addEventListener('click',()=>{
+  if(confirm('Exit the quiz? Progress will be lost.')){
+    $('quiz').classList.add('hidden'); $('home').classList.remove('hidden');
+    window.scrollTo(0,0);
+  }
+});
+
+/* ---------- quiz ---------- */
+function render(){
+  const q=quiz[idx];
+  picked=new Set(); revealed=false;
+  $('counter').textContent=`${idx+1} / ${quiz.length}`;
+  $('bar').style.width=(idx/quiz.length*100)+'%';
+  const isMulti=q.correct.length>1;
+  $('qmeta').innerHTML=
+    `<span class="chip">Part ${q.part}</span>`+
+    (q.options.length
+      ? `<span class="chip type">${isMulti?'Multiple answers':'Single answer'}</span>`
+      : `<span class="chip type">Written answer</span>`);
+  $('qtext').textContent=q.q;
+  $('feedback').innerHTML='';
+  const body=$('qbody'), actions=$('actions');
+  body.innerHTML=''; actions.innerHTML='';
+
+  if(q.options.length){
+    const box=document.createElement('div'); box.className='options';
+    q.options.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='opt'+(isMulti?' multi':''); b.dataset.i=i;
+      b.innerHTML=`<span class="mark">${LETTERS[i]}</span><span>${escapeHtml(o)}</span>`;
+      b.addEventListener('click',()=>{
+        if(revealed) return;
+        if(isMulti){
+          picked.has(i)?picked.delete(i):picked.add(i);
+          b.classList.toggle('picked');
+        }else{
+          picked=new Set([i]);
+          box.querySelectorAll('.opt').forEach(x=>x.classList.remove('picked'));
+          b.classList.add('picked');
+        }
+        submitBtn.disabled=picked.size===0;
+      });
+      box.appendChild(b);
+    });
+    body.appendChild(box);
+    const submitBtn=mkBtn(selMode==='practice'?'Check answer':'Submit','btn',()=>gradeMCQ(q,box));
+    submitBtn.disabled=true;
+    actions.appendChild(submitBtn);
+  } else {
+    const ta=document.createElement('textarea');
+    ta.placeholder='Type your answer here… then reveal and grade yourself.';
+    body.appendChild(ta);
+    actions.appendChild(mkBtn('Show answer','btn',()=>{
+      revealed=true;
+      const ab=document.createElement('div'); ab.className='answer-box';
+      ab.innerHTML=`<div class="lbl">Correct answer</div>${escapeHtml(q.answer||'—')}`;
+      body.appendChild(ab);
+      const sg=document.createElement('div'); sg.className='self-grade';
+      const yes=mkBtn('✓ I got it right','yes',()=>finishOpen(q,true,ta.value));
+      const no=mkBtn('✗ I got it wrong','no',()=>finishOpen(q,false,ta.value));
+      sg.append(yes,no); body.appendChild(sg);
+      actions.innerHTML='';
+      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    }));
+  }
+}
+
+function mkBtn(txt,cls,fn){
+  const b=document.createElement('button');
+  b.className=cls; b.textContent=txt; b.addEventListener('click',fn);
+  return b;
+}
+
+function gradeMCQ(q,box){
+  revealed=true;
+  const correct=new Set(q.correct);
+  const isRight=picked.size===correct.size && [...picked].every(i=>correct.has(i));
+  results.push({q,pickedArr:[...picked],right:isRight});
+  if(selMode==='practice'){
+    box.querySelectorAll('.opt').forEach(b=>{
+      const i=+b.dataset.i; b.disabled=true;
+      if(correct.has(i)&&picked.has(i)) b.className=b.className.replace('picked','')+' correct';
+      else if(picked.has(i)) b.className=b.className.replace('picked','')+' wrong';
+      else if(correct.has(i)) b.classList.add('missed');
+    });
+    $('feedback').innerHTML=`<div class="feedback ${isRight?'ok':'bad'}">${isRight?'✓ Correct!':'✗ Not quite — correct answer highlighted above'}</div>`;
+    $('actions').innerHTML='';
+    $('actions').appendChild(mkBtn(idx+1<quiz.length?'Next question →':'See results','btn',next));
+  } else next();
+}
+
+function finishOpen(q,right,userText){
+  results.push({q,userText,right});
+  next();
+}
+
+function next(){
+  idx++;
+  if(idx<quiz.length){ render(); window.scrollTo(0,0); }
+  else showResults();
+}
+
+/* ---------- results ---------- */
+function showResults(){
+  $('quiz').classList.add('hidden');
+  const r=$('results'); r.classList.remove('hidden');
+  const right=results.filter(x=>x.right).length;
+  const pct=Math.round(right/results.length*100);
+  const color=pct>=80?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
+  const C=2*Math.PI*62;
+  let html=`<div class="result-card">
+    <div class="score-ring">
+      <svg width="150" height="150"><circle cx="75" cy="75" r="62" fill="none" stroke="var(--surface2)" stroke-width="11"/>
+      <circle cx="75" cy="75" r="62" fill="none" stroke="${color}" stroke-width="11" stroke-linecap="round"
+        stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"/></svg>
+      <div class="num"><b>${pct}%</b><span>${right} / ${results.length}</span></div>
+    </div>
+    <div class="result-line">${pct>=80?'Excellent — you are ready! 🎉':pct>=50?'Decent, but review the mistakes below.':'Keep practicing — review the mistakes below.'}</div>
+    <div class="actions" style="margin-top:0">
+      <button class="btn ghost" id="home-btn">Home</button>
+      <button class="btn" id="retry-btn">Try again</button>
+    </div>
+  </div>`;
+  const wrong=results.filter(x=>!x.right);
+  if(wrong.length){
+    html+=`<div class="section-label">Mistakes (${wrong.length})</div>`;
+    wrong.forEach(x=>{
+      let ans;
+      if(x.q.options.length){
+        const corr=x.q.correct.map(i=>x.q.options[i]).join('; ');
+        const yours=x.pickedArr.map(i=>x.q.options[i]).join('; ')||'—';
+        ans=`<span class="u">Your answer: ${escapeHtml(yours)}</span><br><b>Correct: ${escapeHtml(corr)}</b>`;
+      }else{
+        ans=`<span class="u">Your answer: ${escapeHtml(x.userText||'—')}</span><br><b>Correct: ${escapeHtml(x.q.answer||'—')}</b>`;
+      }
+      html+=`<div class="review-item bad"><div class="rq">[Part ${x.q.part}] ${escapeHtml(x.q.q)}</div><div class="ra">${ans}</div></div>`;
+    });
+  }
+  r.innerHTML=html;
+  $('home-btn').addEventListener('click',()=>{
+    r.classList.add('hidden'); $('home').classList.remove('hidden'); window.scrollTo(0,0);
+  });
+  $('retry-btn').addEventListener('click',()=>{
+    r.classList.add('hidden'); $('start').click(); window.scrollTo(0,0);
+  });
+  window.scrollTo(0,0);
+}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+</body>
+</html>
