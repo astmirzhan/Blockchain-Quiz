@@ -4,84 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blockchain Exam Prep</title>
+<meta name="description" content="Prepare for your Blockchain exam with practice quizzes, mock exams, and open-answer training across all parts.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛓️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f7fb; --surface:#ffffff; --surface2:#e8eef6; --border:#d7e0ec;
-  --text:#1a2333; --muted:#5d6b80; --accent:#2563eb; --accent-soft:rgba(37,99,235,.09);
-  --green:#15803d; --green-soft:rgba(21,128,61,.10);
-  --red:#dc2626; --red-soft:rgba(220,38,38,.08);
-  --amber:#b45309; --radius:14px;
+  --bg:#0f1117; --surface:#1a1d27; --surface2:#252836; --border:#2e3348;
+  --text:#e8eaf0; --muted:#8b8fa3; --accent:#6c5ce7; --accent2:#a29bfe;
+  --accent-soft:rgba(108,92,231,.12); --accent-glow:rgba(108,92,231,.25);
+  --green:#00b894; --green-soft:rgba(0,184,148,.10);
+  --red:#ff6b6b; --red-soft:rgba(255,107,107,.08);
+  --amber:#fdcb6e; --amber-soft:rgba(253,203,110,.10);
+  --radius:14px; --glass:rgba(26,29,39,.85);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-.part-card,.mode-card,.opt,.result-card,.review-item,textarea{box-shadow:0 1px 3px rgba(26,35,51,.06)}
-html{font-size:16px}
+html{font-size:16px;scroll-behavior:smooth}
 body{
   background:var(--bg); color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
   line-height:1.55; min-height:100dvh;
+  background-image:
+    radial-gradient(ellipse at 20% 0%,rgba(108,92,231,.08) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 100%,rgba(0,184,148,.05) 0%,transparent 50%);
 }
 .wrap{max-width:760px;margin:0 auto;padding:20px 16px 64px}
-header{display:flex;align-items:center;gap:10px;padding:8px 0 20px}
-header .logo{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:none}
-header .logo svg{width:19px;height:19px;stroke:var(--accent)}
-header h1{font-size:1.05rem;font-weight:600;letter-spacing:.01em}
+header{display:flex;align-items:center;gap:12px;padding:8px 0 24px}
+header .logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;flex:none;
+  box-shadow:0 4px 15px var(--accent-glow);
+}
+header .logo svg{width:20px;height:20px;stroke:#fff}
+header h1{font-size:1.1rem;font-weight:700;letter-spacing:.01em;background:linear-gradient(135deg,var(--text),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 header .sub{font-size:.8rem;color:var(--muted)}
 .hidden{display:none !important}
 
 /* ---------- home ---------- */
-.section-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 10px}
+.section-label{
+  font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--accent2);margin:28px 0 12px;display:flex;align-items:center;gap:8px;
+}
+.section-label::before{content:'';flex:none;width:3px;height:14px;border-radius:2px;background:var(--accent)}
+.section-icon{font-size:1rem;margin-right:2px}
 .parts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(min-width:560px){.parts{grid-template-columns:repeat(3,1fr)}}
+.part-card,.mode-card,.opt,.result-card,.review-item,textarea{
+  box-shadow:0 2px 8px rgba(0,0,0,.2),0 0 1px rgba(255,255,255,.05);
+}
 .part-card{
   background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
   padding:16px 14px;cursor:pointer;text-align:left;color:var(--text);
-  transition:border-color .15s,transform .12s,background .15s;
+  transition:border-color .2s,transform .15s,background .2s,box-shadow .2s;
   display:flex;flex-direction:column;gap:4px;font:inherit;
+  position:relative;overflow:hidden;
 }
-.part-card:hover{border-color:var(--accent)}
+.part-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(108,92,231,.06),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.part-card:hover{border-color:var(--accent);box-shadow:0 4px 20px rgba(108,92,231,.15)}
+.part-card:hover::before{opacity:1}
 .part-card:active{transform:scale(.97)}
-.part-card.selected{border-color:var(--accent);background:var(--accent-soft)}
-.part-card .name{font-weight:600;font-size:1rem}
-.part-card .count{font-size:.8rem;color:var(--muted)}
+.part-card.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 20px var(--accent-glow)}
+.part-card .name{font-weight:600;font-size:.95rem;position:relative;z-index:1}
+.part-card .count{font-size:.78rem;color:var(--muted);position:relative;z-index:1}
 .part-card.all{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between}
+
+.open-cats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:480px){.open-cats{grid-template-columns:1fr}}
+
+.choice-row{display:grid;grid-template-columns:1fr;gap:10px}
+
 .mode-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mode-card{
   background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
   padding:14px;cursor:pointer;color:var(--text);text-align:left;font:inherit;
-  transition:border-color .15s,background .15s;
+  transition:border-color .2s,background .2s,box-shadow .2s;
 }
-.mode-card.selected{border-color:var(--accent);background:var(--accent-soft)}
-.mode-card .name{font-weight:600;font-size:.95rem}
-.mode-card .desc{font-size:.78rem;color:var(--muted);margin-top:3px}
+.mode-card.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 15px var(--accent-glow)}
+.mode-card .name{font-weight:600;font-size:.92rem}
+.mode-card .desc{font-size:.76rem;color:var(--muted);margin-top:3px}
 .start-btn{
   margin-top:26px;width:100%;padding:15px;border:none;border-radius:var(--radius);
-  background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;font:inherit;font-weight:600;
-  transition:filter .15s,transform .12s;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+  font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:filter .15s,transform .12s,box-shadow .2s;
+  box-shadow:0 4px 20px var(--accent-glow);
+  letter-spacing:.02em;
 }
-.start-btn:hover{filter:brightness(1.1)}
+.start-btn:hover{filter:brightness(1.1);box-shadow:0 6px 30px var(--accent-glow)}
 .start-btn:active{transform:scale(.98)}
-.start-btn:disabled{opacity:.4;cursor:not-allowed}
+.start-btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
 
 /* ---------- quiz ---------- */
 .quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
 .quiz-top .counter{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.quit-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 12px;font-size:.8rem;cursor:pointer;font:inherit}
+.quit-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .15s}
 .quit-btn:hover{color:var(--red);border-color:var(--red)}
 .progress{height:5px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-bottom:22px}
-.progress i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .25s ease-out}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .3s ease-out}
 .q-meta{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--surface2);color:var(--muted)}
-.chip.type{background:var(--accent-soft);color:var(--accent)}
-.q-text{font-size:1.12rem;font-weight:600;line-height:1.45;margin-bottom:20px}
+.chip{font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.chip.type{background:var(--accent-soft);color:var(--accent2)}
+.chip.pts{background:var(--amber-soft);color:var(--amber)}
+.q-text{font-size:1.1rem;font-weight:600;line-height:1.5;margin-bottom:20px}
 .options{display:flex;flex-direction:column;gap:10px}
 .opt{
   display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;
   background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:13px 14px;cursor:pointer;color:var(--text);font:inherit;font-size:.95rem;
-  transition:border-color .15s,background .15s;
+  padding:13px 14px;cursor:pointer;color:var(--text);font:inherit;font-size:.93rem;
+  transition:border-color .15s,background .15s,box-shadow .15s;
 }
-.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:hover:not(:disabled){border-color:var(--accent);box-shadow:0 0 10px rgba(108,92,231,.1)}
 .opt:disabled{cursor:default}
 .opt .mark{
   flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);
@@ -95,54 +133,75 @@ header .sub{font-size:.8rem;color:var(--muted)}
 .opt.correct .mark{border-color:var(--green);background:var(--green);color:#fff}
 .opt.wrong{border-color:var(--red);background:var(--red-soft)}
 .opt.wrong .mark{border-color:var(--red);background:var(--red);color:#fff}
-.opt.missed{border-color:var(--green);border-style:dashed}
+.opt.missed{border-color:var(--green);border-style:dashed;background:rgba(0,184,148,.04)}
 textarea{
   width:100%;min-height:96px;background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;padding:13px 14px;color:var(--text);font:inherit;font-size:.95rem;resize:vertical;
+  border-radius:12px;padding:13px 14px;color:var(--text);font:inherit;font-size:.93rem;resize:vertical;
+  transition:border-color .2s;
 }
-textarea:focus{outline:none;border-color:var(--accent)}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px var(--accent-glow)}
+textarea::placeholder{color:var(--muted)}
 .answer-box{
   margin-top:14px;background:var(--green-soft);border:1px solid var(--green);
-  border-radius:12px;padding:13px 14px;font-size:.95rem;
+  border-radius:12px;padding:13px 14px;font-size:.93rem;
 }
-.answer-box .lbl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:4px}
-.self-grade{display:flex;gap:10px;margin-top:14px}
-.self-grade button{
-  flex:1;padding:12px;border-radius:12px;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;
-  border:1px solid var(--border);background:var(--surface);color:var(--text);transition:all .15s;
-}
-.self-grade .yes:hover{border-color:var(--green);color:var(--green)}
-.self-grade .no:hover{border-color:var(--red);color:var(--red)}
+.answer-box .lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:4px}
+.keyword-info{font-size:.8rem;color:var(--muted);margin-top:8px;font-style:italic}
 .actions{margin-top:22px;display:flex;gap:10px}
 .btn{
-  flex:1;padding:14px;border-radius:12px;font:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
-  border:none;background:var(--accent);color:#fff;transition:filter .15s,transform .12s;
+  flex:1;padding:14px;border-radius:12px;font:inherit;font-size:.93rem;font-weight:600;cursor:pointer;
+  border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+  transition:filter .15s,transform .12s,box-shadow .2s;
+  box-shadow:0 2px 10px var(--accent-glow);
 }
-.btn:hover{filter:brightness(1.1)}
+.btn:hover{filter:brightness(1.1);box-shadow:0 4px 20px var(--accent-glow)}
 .btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.35;cursor:not-allowed;filter:none}
-.btn.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text)}
-.feedback{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:.92rem;font-weight:600}
-.feedback.ok{background:var(--green-soft);color:var(--green)}
-.feedback.bad{background:var(--red-soft);color:var(--red)}
+.btn:disabled{opacity:.3;cursor:not-allowed;filter:none;box-shadow:none}
+.btn.ghost{background:var(--surface);border:1px solid var(--border);color:var(--text);box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent);box-shadow:0 0 10px rgba(108,92,231,.1)}
+.feedback{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:.9rem;font-weight:600}
+.feedback.ok{background:var(--green-soft);color:var(--green);border:1px solid rgba(0,184,148,.2)}
+.feedback.partial{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(253,203,110,.2)}
+.feedback.bad{background:var(--red-soft);color:var(--red);border:1px solid rgba(255,107,107,.2)}
 
 /* ---------- results ---------- */
-.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center}
-.score-ring{position:relative;width:150px;height:150px;margin:0 auto 16px}
+.result-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 24px;text-align:center;
+  box-shadow:0 4px 30px rgba(0,0,0,.3);
+}
+.score-ring{position:relative;width:160px;height:160px;margin:0 auto 20px}
 .score-ring svg{transform:rotate(-90deg)}
 .score-ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.score-ring .num b{font-size:2rem;font-variant-numeric:tabular-nums}
-.score-ring .num span{font-size:.75rem;color:var(--muted)}
-.result-line{color:var(--muted);font-size:.92rem;margin-bottom:20px}
-.review-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;text-align:left}
-.review-item.ok{border-left:3px solid var(--green)}
+.score-ring .num b{font-size:2.2rem;font-variant-numeric:tabular-nums;font-weight:700}
+.score-ring .num span{font-size:.78rem;color:var(--muted)}
+.result-badge{
+  display:inline-block;padding:6px 20px;border-radius:99px;font-size:.85rem;font-weight:700;
+  letter-spacing:.06em;margin-bottom:16px;
+}
+.result-badge.pass{background:var(--green-soft);color:var(--green);border:1px solid rgba(0,184,148,.3)}
+.result-badge.fail{background:var(--red-soft);color:var(--red);border:1px solid rgba(255,107,107,.3)}
+.result-line{color:var(--muted);font-size:.9rem;margin-bottom:22px;line-height:1.5}
+.review-label{margin-top:28px}
+.review-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:16px;margin-bottom:10px;text-align:left;
+  transition:border-color .15s;
+}
 .review-item.bad{border-left:3px solid var(--red)}
-.review-item .rq{font-weight:600;font-size:.92rem;margin-bottom:6px}
-.review-item .ra{font-size:.85rem;color:var(--muted)}
+.review-item.partial-review{border-left:3px solid var(--amber)}
+.review-item .rq{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.review-item .rmeta{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.review-item .ra{font-size:.83rem;color:var(--muted);line-height:1.5}
 .review-item .ra b{color:var(--green);font-weight:600}
 .review-item .ra .u{color:var(--red)}
-footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:40px}
-@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+.score-detail{font-size:.78rem;color:var(--muted);margin-top:4px}
+footer{text-align:center;color:var(--muted);font-size:.73rem;margin-top:40px;opacity:.6}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+
+/* animation */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeInUp .35s ease-out}
 </style>
 </head>
 <body>
@@ -151,21 +210,59 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:40px}
     <div class="logo"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
     <div>
       <h1>Blockchain Exam Prep</h1>
-      <div class="sub" id="header-sub">115 questions · Parts A–E</div>
+      <div class="sub" id="header-sub"></div>
     </div>
   </header>
 
   <!-- HOME -->
   <div id="home">
-    <div class="section-label">Choose a part</div>
+    <!-- Mock Exam -->
+    <div class="section-label"><span class="section-icon">🎯</span> Mock Exam</div>
+    <div class="parts">
+      <button class="part-card all" id="mock-btn" data-section="mock">
+        <span class="name">Full mock exam</span>
+        <span class="count">~42 questions · ~100 pts · 50% pass</span>
+      </button>
+    </div>
+
+    <!-- Choose a Part -->
+    <div class="section-label"><span class="section-icon">📚</span> Choose a part</div>
     <div class="parts" id="parts"></div>
-    <div class="section-label">Mode</div>
+
+    <!-- Open-answer training -->
+    <div class="section-label"><span class="section-icon">✍️</span> Open-answer training</div>
+    <div class="open-cats" id="open-cats">
+      <button class="part-card" data-section="open-short">
+        <span class="name">Short answers</span>
+        <span class="count">Loading…</span>
+      </button>
+      <button class="part-card" data-section="open-medium">
+        <span class="name">Medium answers</span>
+        <span class="count">Loading…</span>
+      </button>
+      <button class="part-card" data-section="open-long">
+        <span class="name">Long answers</span>
+        <span class="count">Loading…</span>
+      </button>
+    </div>
+
+    <!-- Choice questions only -->
+    <div class="section-label"><span class="section-icon">☑️</span> Choice questions only</div>
+    <div class="choice-row">
+      <button class="part-card all" data-section="choice-only">
+        <span class="name">All choice questions</span>
+        <span class="count" id="choice-count">Loading…</span>
+      </button>
+    </div>
+
+    <!-- Mode -->
+    <div class="section-label"><span class="section-icon">⚙️</span> Mode</div>
     <div class="mode-row">
-      <button class="mode-card selected" data-mode="practice">
+      <button class="mode-card selected" data-mode="practice" id="mode-practice">
         <div class="name">Practice</div>
         <div class="desc">Instant feedback after each question</div>
       </button>
-      <button class="mode-card" data-mode="exam">
+      <button class="mode-card" data-mode="exam" id="mode-exam">
         <div class="name">Exam</div>
         <div class="desc">Results shown at the end</div>
       </button>
@@ -197,207 +294,525 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:40px}
 <script>
 const DATA = window.QUIZ_DATA;
 const $ = id => document.getElementById(id);
-const LETTERS = 'ABCDEFGH';
+const LETTERS = 'ABCDEFGHIJ';
 
-let selPart = null, selMode = 'practice';
+/* ========== state ========== */
+let selSection = null, selMode = 'practice', effectiveMode = 'practice';
 let quiz = [], idx = 0, results = [];
 let picked = new Set(), revealed = false;
+let passThreshold = 80; // default 80%, mock = 50%
 
-/* ---------- home ---------- */
+/* ========== stop words & stemming ========== */
+const STOP_WORDS = new Set([
+  'a','an','the','of','in','to','and','or','is','are','was','were','be','been',
+  'being','have','has','had','do','does','did','will','would','shall','should',
+  'may','might','can','could','for','with','at','by','from','on','that','this',
+  'it','its','as','but','not','no','so','if','then','than','very','just','about',
+  'also','each','which','what','who','how','when','where','their','there','these',
+  'those','they','them','he','she','his','her','we','our','you','your'
+]);
+
+function stem(word) {
+  word = word.toLowerCase().replace(/[^a-z]/g, '');
+  if (word.length < 3) return word;
+  if (word.endsWith('ies') && word.length > 4) return word.slice(0, -3) + 'y';
+  if (word.endsWith('edness')) return word.slice(0, -6);
+  if (word.endsWith('edly')) return word.slice(0, -4);
+  if (word.endsWith('ing') && word.length > 5) return word.slice(0, -3);
+  if (word.endsWith('es') && word.length > 4) return word.slice(0, -2);
+  if (word.endsWith('ed') && word.length > 4) return word.slice(0, -2);
+  if (word.endsWith('s') && !word.endsWith('ss') && word.length > 3) return word.slice(0, -1);
+  return word;
+}
+
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, () => Array(n+1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = Math.min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  return dp[m][n];
+}
+
+function extractKeywords(text) {
+  return text.split(/[\s,;.!?()\/\-]+/)
+    .map(w => stem(w))
+    .filter(w => w.length >= 2 && !STOP_WORDS.has(w));
+}
+
+function matchKeywords(userText, correctAnswer) {
+  const correctKW = extractKeywords(correctAnswer);
+  if (correctKW.length === 0) return {matched: 0, total: 0};
+  const userKW = extractKeywords(userText);
+  let matched = 0;
+  const usedUser = new Set();
+  correctKW.forEach(ck => {
+    for (let i = 0; i < userKW.length; i++) {
+      if (usedUser.has(i)) continue;
+      const uk = userKW[i];
+      if (uk === ck || (uk.length >= 4 && ck.length >= 4 && levenshtein(uk, ck) <= 1)) {
+        matched++;
+        usedUser.add(i);
+        break;
+      }
+    }
+  });
+  return {matched, total: correctKW.length};
+}
+
+/* ========== question helpers ========== */
+function getMaxPoints(q) {
+  if (q.options.length) return Math.max(q.correct.length, 1);
+  const m = q.q.match(/\[(\d+)\]\s*$/);
+  return m ? parseInt(m[1]) : 1;
+}
+
+function getWordCount(q) {
+  if (!q.answer) return 0;
+  return q.answer.split(/\s+/).filter(Boolean).length;
+}
+
+function isFreeText(q) { return !q.options.length; }
+
+/* ========== open-answer categorization ========== */
+const MEDIUM_OVERRIDES = [];
+
+function categorizeOpen(q) {
+  const pts = getMaxPoints(q);
+  const words = getWordCount(q);
+  const txt = q.q.toLowerCase();
+  if (MEDIUM_OVERRIDES.some(ov => q.q.includes(ov))) return 'medium';
+  if (pts <= 3 || words <= 6) return 'short';
+  if (txt.includes('phrase') || words > 20 || pts > 6) return 'long';
+  if (words >= 7 && words <= 20 || pts >= 4 && pts <= 6) return 'medium';
+  return 'medium';
+}
+
+/* ========== build home ========== */
 const partsEl = $('parts');
 const parts = Object.keys(DATA);
-const allCount = parts.reduce((s,p)=>s+DATA[p].length,0);
+const allCount = parts.reduce((s,p) => s + DATA[p].length, 0);
 $('header-sub').textContent = `${allCount} questions · Parts ${parts[0]}–${parts[parts.length-1]}`;
-parts.forEach(p=>{
-  const b=document.createElement('button');
-  b.className='part-card'; b.dataset.part=p;
-  b.innerHTML=`<span class="name">Part ${p}</span><span class="count">${DATA[p].length} questions</span>`;
+
+// Part buttons
+parts.forEach(p => {
+  const b = document.createElement('button');
+  b.className = 'part-card'; b.dataset.section = 'part-' + p;
+  b.innerHTML = `<span class="name">Part ${p}</span><span class="count">${DATA[p].length} questions</span>`;
   partsEl.appendChild(b);
 });
-const allBtn=document.createElement('button');
-allBtn.className='part-card all'; allBtn.dataset.part='ALL';
-allBtn.innerHTML=`<span class="name">🔥 All parts — full mix</span><span class="count">${allCount} questions</span>`;
+const allBtn = document.createElement('button');
+allBtn.className = 'part-card all'; allBtn.dataset.section = 'part-ALL';
+allBtn.innerHTML = `<span class="name">🔥 All parts — full mix</span><span class="count">${allCount} questions</span>`;
 partsEl.appendChild(allBtn);
 
-partsEl.addEventListener('click',e=>{
-  const card=e.target.closest('.part-card'); if(!card) return;
-  partsEl.querySelectorAll('.part-card').forEach(c=>c.classList.remove('selected'));
-  card.classList.add('selected'); selPart=card.dataset.part;
-  $('start').disabled=false;
-});
-document.querySelectorAll('.mode-card').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));
-  b.classList.add('selected'); selMode=b.dataset.mode;
+// Open-answer counts
+let openShort = [], openMedium = [], openLong = [];
+parts.forEach(p => DATA[p].forEach(q => {
+  if (!isFreeText(q)) return;
+  const cat = categorizeOpen(q);
+  const qp = {...q, part: p};
+  if (cat === 'short') openShort.push(qp);
+  else if (cat === 'medium') openMedium.push(qp);
+  else openLong.push(qp);
 }));
 
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+document.querySelector('[data-section="open-short"] .count').textContent = `${openShort.length} questions`;
+document.querySelector('[data-section="open-medium"] .count').textContent = `${openMedium.length} questions`;
+document.querySelector('[data-section="open-long"] .count').textContent = `${openLong.length} questions`;
 
-$('start').addEventListener('click',()=>{
-  let pool=[];
-  if(selPart==='ALL') parts.forEach(p=>DATA[p].forEach(q=>pool.push({...q,part:p})));
-  else DATA[selPart].forEach(q=>pool.push({...q,part:selPart}));
-  quiz = shuffle(pool).map(q=>{
-    if(!q.options.length) return q;
-    const order=shuffle(q.options.map((_,i)=>i));
+// Choice count
+let choiceQuestions = [];
+parts.forEach(p => DATA[p].forEach(q => {
+  if (q.options.length) choiceQuestions.push({...q, part: p});
+}));
+$('choice-count').textContent = `${choiceQuestions.length} questions`;
+
+/* ========== selection logic ========== */
+const allSelectables = document.querySelectorAll('[data-section]');
+allSelectables.forEach(btn => btn.addEventListener('click', () => {
+  allSelectables.forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  selSection = btn.dataset.section;
+  $('start').disabled = false;
+
+  // If mock exam, force exam mode visually
+  if (selSection === 'mock') {
+    document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+    $('mode-exam').classList.add('selected');
+    selMode = 'exam';
+  }
+}));
+
+document.querySelectorAll('.mode-card').forEach(b => b.addEventListener('click', () => {
+  if (selSection === 'mock') return; // mock always exam
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  b.classList.add('selected');
+  selMode = b.dataset.mode;
+}));
+
+/* ========== shuffle ========== */
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ========== mock exam generator ========== */
+function generateMockExam() {
+  let allQ = [];
+  parts.forEach(p => DATA[p].forEach(q => allQ.push({...q, part: p})));
+  shuffle(allQ);
+
+  // separate free-text and choice
+  const freeText = allQ.filter(q => isFreeText(q));
+  const choice = allQ.filter(q => !isFreeText(q));
+
+  let pool = [];
+  let totalPts = 0;
+
+  // Add free-text first targeting ~55 pts
+  for (const q of freeText) {
+    if (totalPts >= 55) break;
+    pool.push(q);
+    totalPts += getMaxPoints(q);
+  }
+
+  // Fill remaining with choice to reach ~100 pts, max 45 questions
+  for (const q of choice) {
+    if (totalPts >= 100 || pool.length >= 45) break;
+    pool.push(q);
+    totalPts += getMaxPoints(q);
+  }
+
+  return shuffle(pool);
+}
+
+/* ========== start quiz ========== */
+$('start').addEventListener('click', () => {
+  let pool = [];
+  passThreshold = 80;
+  effectiveMode = selMode;
+
+  if (selSection === 'mock') {
+    pool = generateMockExam();
+    passThreshold = 50;
+    effectiveMode = 'exam';
+  } else if (selSection.startsWith('part-')) {
+    const partKey = selSection.replace('part-', '');
+    if (partKey === 'ALL') {
+      parts.forEach(p => DATA[p].forEach(q => pool.push({...q, part: p})));
+    } else {
+      DATA[partKey].forEach(q => pool.push({...q, part: partKey}));
+    }
+  } else if (selSection === 'open-short') {
+    pool = openShort.map(q => ({...q}));
+  } else if (selSection === 'open-medium') {
+    pool = openMedium.map(q => ({...q}));
+  } else if (selSection === 'open-long') {
+    pool = openLong.map(q => ({...q}));
+  } else if (selSection === 'choice-only') {
+    pool = choiceQuestions.map(q => ({...q}));
+  }
+
+  // shuffle & remap options
+  quiz = shuffle(pool).map(q => {
+    if (!q.options.length) return q;
+    const order = shuffle(q.options.map((_, i) => i));
     return {...q,
-      options:order.map(i=>q.options[i]),
-      correct:q.correct.map(c=>order.indexOf(c))};
+      options: order.map(i => q.options[i]),
+      correct: q.correct.map(c => order.indexOf(c))
+    };
   });
-  idx=0; results=[];
-  $('home').classList.add('hidden'); $('results').classList.add('hidden');
+
+  idx = 0;
+  results = [];
+  $('home').classList.add('hidden');
+  $('results').classList.add('hidden');
   $('quiz').classList.remove('hidden');
   render();
 });
 
-$('quit').addEventListener('click',()=>{
-  if(confirm('Exit the quiz? Progress will be lost.')){
-    $('quiz').classList.add('hidden'); $('home').classList.remove('hidden');
-    window.scrollTo(0,0);
+$('quit').addEventListener('click', () => {
+  if (confirm('Exit the quiz? Progress will be lost.')) {
+    $('quiz').classList.add('hidden');
+    $('home').classList.remove('hidden');
+    window.scrollTo(0, 0);
   }
 });
 
-/* ---------- quiz ---------- */
-function render(){
-  const q=quiz[idx];
-  picked=new Set(); revealed=false;
-  $('counter').textContent=`${idx+1} / ${quiz.length}`;
-  $('bar').style.width=(idx/quiz.length*100)+'%';
-  const isMulti=q.correct.length>1;
-  $('qmeta').innerHTML=
-    `<span class="chip">Part ${q.part}</span>`+
-    (q.options.length
-      ? `<span class="chip type">${isMulti?'Multiple answers':'Single answer'}</span>`
-      : `<span class="chip type">Written answer</span>`);
-  $('qtext').textContent=q.q;
-  $('feedback').innerHTML='';
-  const body=$('qbody'), actions=$('actions');
-  body.innerHTML=''; actions.innerHTML='';
+/* ========== render question ========== */
+function render() {
+  const q = quiz[idx];
+  picked = new Set();
+  revealed = false;
+  $('counter').textContent = `${idx + 1} / ${quiz.length}`;
+  $('bar').style.width = (idx / quiz.length * 100) + '%';
 
-  if(q.options.length){
-    const box=document.createElement('div'); box.className='options';
-    q.options.forEach((o,i)=>{
-      const b=document.createElement('button');
-      b.className='opt'+(isMulti?' multi':''); b.dataset.i=i;
-      b.innerHTML=`<span class="mark">${LETTERS[i]}</span><span>${escapeHtml(o)}</span>`;
-      b.addEventListener('click',()=>{
-        if(revealed) return;
-        if(isMulti){
-          picked.has(i)?picked.delete(i):picked.add(i);
+  const isMulti = q.correct.length > 1;
+  const maxPts = getMaxPoints(q);
+
+  let metaHtml = `<span class="chip">Part ${q.part}</span>`;
+  if (q.options.length) {
+    metaHtml += `<span class="chip type">${isMulti ? 'Multiple answers' : 'Single answer'}</span>`;
+  } else {
+    metaHtml += `<span class="chip type">Written answer</span>`;
+  }
+  metaHtml += `<span class="chip pts">${maxPts} ${maxPts === 1 ? 'pt' : 'pts'}</span>`;
+  $('qmeta').innerHTML = metaHtml;
+  $('qtext').textContent = q.q;
+  $('feedback').innerHTML = '';
+
+  const body = $('qbody'), actions = $('actions');
+  body.innerHTML = '';
+  actions.innerHTML = '';
+
+  if (q.options.length) {
+    const box = document.createElement('div');
+    box.className = 'options';
+    q.options.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.className = 'opt' + (isMulti ? ' multi' : '');
+      b.dataset.i = i;
+      b.innerHTML = `<span class="mark">${LETTERS[i]}</span><span>${escapeHtml(o)}</span>`;
+      b.addEventListener('click', () => {
+        if (revealed) return;
+        if (isMulti) {
+          picked.has(i) ? picked.delete(i) : picked.add(i);
           b.classList.toggle('picked');
-        }else{
-          picked=new Set([i]);
-          box.querySelectorAll('.opt').forEach(x=>x.classList.remove('picked'));
+        } else {
+          picked = new Set([i]);
+          box.querySelectorAll('.opt').forEach(x => x.classList.remove('picked'));
           b.classList.add('picked');
         }
-        submitBtn.disabled=picked.size===0;
+        submitBtn.disabled = picked.size === 0;
       });
       box.appendChild(b);
     });
     body.appendChild(box);
-    const submitBtn=mkBtn(selMode==='practice'?'Check answer':'Submit','btn',()=>gradeMCQ(q,box));
-    submitBtn.disabled=true;
+    const btnLabel = effectiveMode === 'practice' ? 'Check answer' : 'Submit';
+    const submitBtn = mkBtn(btnLabel, 'btn', () => gradeMCQ(q, box));
+    submitBtn.disabled = true;
     actions.appendChild(submitBtn);
   } else {
-    const ta=document.createElement('textarea');
-    ta.placeholder='Type your answer here… then reveal and grade yourself.';
+    // Free-text
+    const ta = document.createElement('textarea');
+    ta.placeholder = 'Type your answer here…';
+    ta.id = 'user-text-input';
     body.appendChild(ta);
-    actions.appendChild(mkBtn('Show answer','btn',()=>{
-      revealed=true;
-      const ab=document.createElement('div'); ab.className='answer-box';
-      ab.innerHTML=`<div class="lbl">Correct answer</div>${escapeHtml(q.answer||'—')}`;
-      body.appendChild(ab);
-      const sg=document.createElement('div'); sg.className='self-grade';
-      const yes=mkBtn('✓ I got it right','yes',()=>finishOpen(q,true,ta.value));
-      const no=mkBtn('✗ I got it wrong','no',()=>finishOpen(q,false,ta.value));
-      sg.append(yes,no); body.appendChild(sg);
-      actions.innerHTML='';
-      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    }));
+
+    if (effectiveMode === 'practice') {
+      actions.appendChild(mkBtn('Check answer', 'btn', () => gradeFreeText(q, ta)));
+    } else {
+      actions.appendChild(mkBtn('Submit', 'btn', () => {
+        // In exam mode just store and move on
+        const userText = ta.value.trim();
+        const kw = matchKeywords(userText, q.answer || '');
+        const maxPts = getMaxPoints(q);
+        const earned = kw.total > 0 ? Math.round((kw.matched / kw.total) * maxPts) : 0;
+        results.push({q, userText, earned, maxPts, matched: kw.matched, totalKW: kw.total});
+        next();
+      }));
+    }
   }
+
+  // fade in animation
+  body.classList.remove('fade-in');
+  void body.offsetWidth;
+  body.classList.add('fade-in');
 }
 
-function mkBtn(txt,cls,fn){
-  const b=document.createElement('button');
-  b.className=cls; b.textContent=txt; b.addEventListener('click',fn);
+function mkBtn(txt, cls, fn) {
+  const b = document.createElement('button');
+  b.className = cls;
+  b.textContent = txt;
+  b.addEventListener('click', fn);
   return b;
 }
 
-function gradeMCQ(q,box){
-  revealed=true;
-  const correct=new Set(q.correct);
-  const isRight=picked.size===correct.size && [...picked].every(i=>correct.has(i));
-  results.push({q,pickedArr:[...picked],right:isRight});
-  if(selMode==='practice'){
-    box.querySelectorAll('.opt').forEach(b=>{
-      const i=+b.dataset.i; b.disabled=true;
-      if(correct.has(i)&&picked.has(i)) b.className=b.className.replace('picked','')+' correct';
-      else if(picked.has(i)) b.className=b.className.replace('picked','')+' wrong';
-      else if(correct.has(i)) b.classList.add('missed');
+/* ========== grade MCQ ========== */
+function gradeMCQ(q, box) {
+  revealed = true;
+  const correct = new Set(q.correct);
+  const maxPts = Math.max(q.correct.length, 1);
+
+  let earned;
+  if (q.correct.length <= 1) {
+    // single-choice
+    earned = (picked.size === 1 && correct.has([...picked][0])) ? 1 : 0;
+  } else {
+    // multi-choice: +1 per correct, -1 per wrong, min 0
+    let score = 0;
+    picked.forEach(i => { score += correct.has(i) ? 1 : -1; });
+    earned = Math.max(0, score);
+  }
+
+  results.push({q, pickedArr: [...picked], earned, maxPts});
+
+  if (effectiveMode === 'practice') {
+    box.querySelectorAll('.opt').forEach(b => {
+      const i = +b.dataset.i;
+      b.disabled = true;
+      if (correct.has(i) && picked.has(i)) {
+        b.className = b.className.replace('picked', '') + ' correct';
+      } else if (picked.has(i)) {
+        b.className = b.className.replace('picked', '') + ' wrong';
+      } else if (correct.has(i)) {
+        b.classList.add('missed');
+      }
     });
-    $('feedback').innerHTML=`<div class="feedback ${isRight?'ok':'bad'}">${isRight?'✓ Correct!':'✗ Not quite — correct answer highlighted above'}</div>`;
-    $('actions').innerHTML='';
-    $('actions').appendChild(mkBtn(idx+1<quiz.length?'Next question →':'See results','btn',next));
-  } else next();
+
+    let fbClass, fbText;
+    if (earned === maxPts) {
+      fbClass = 'ok';
+      fbText = `✓ Correct! ${earned}/${maxPts} pts`;
+    } else if (earned > 0) {
+      fbClass = 'partial';
+      fbText = `◐ Partial — ${earned}/${maxPts} pts`;
+    } else {
+      fbClass = 'bad';
+      fbText = `✗ Incorrect — correct answer highlighted above`;
+    }
+    $('feedback').innerHTML = `<div class="feedback ${fbClass}">${fbText}</div>`;
+
+    $('actions').innerHTML = '';
+    $('actions').appendChild(mkBtn(idx + 1 < quiz.length ? 'Next question →' : 'See results', 'btn', next));
+  } else {
+    next();
+  }
 }
 
-function finishOpen(q,right,userText){
-  results.push({q,userText,right});
-  next();
+/* ========== grade free-text (practice) ========== */
+function gradeFreeText(q, ta) {
+  revealed = true;
+  const userText = ta.value.trim();
+  const maxPts = getMaxPoints(q);
+  const kw = matchKeywords(userText, q.answer || '');
+  const earned = kw.total > 0 ? Math.round((kw.matched / kw.total) * maxPts) : 0;
+
+  results.push({q, userText, earned, maxPts, matched: kw.matched, totalKW: kw.total});
+
+  ta.disabled = true;
+
+  // Show correct answer
+  const ab = document.createElement('div');
+  ab.className = 'answer-box';
+  ab.innerHTML = `<div class="lbl">Correct answer</div>${escapeHtml(q.answer || '—')}`;
+  if (kw.total > 0) {
+    ab.innerHTML += `<div class="keyword-info">Matched ${kw.matched}/${kw.total} key words</div>`;
+  }
+  $('qbody').appendChild(ab);
+
+  let fbClass, fbText;
+  if (earned === maxPts) {
+    fbClass = 'ok';
+    fbText = `✓ Correct! ${earned}/${maxPts} pts`;
+  } else if (earned > 0) {
+    fbClass = 'partial';
+    fbText = `◐ Partial — ${earned}/${maxPts} pts`;
+  } else {
+    fbClass = 'bad';
+    fbText = `✗ Incorrect — ${earned}/${maxPts} pts`;
+  }
+  $('feedback').innerHTML = `<div class="feedback ${fbClass}">${fbText}</div>`;
+
+  $('actions').innerHTML = '';
+  $('actions').appendChild(mkBtn(idx + 1 < quiz.length ? 'Next question →' : 'See results', 'btn', next));
+  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
 }
 
-function next(){
+/* ========== navigation ========== */
+function next() {
   idx++;
-  if(idx<quiz.length){ render(); window.scrollTo(0,0); }
-  else showResults();
+  if (idx < quiz.length) {
+    render();
+    window.scrollTo(0, 0);
+  } else {
+    showResults();
+  }
 }
 
-/* ---------- results ---------- */
-function showResults(){
+/* ========== results ========== */
+function showResults() {
   $('quiz').classList.add('hidden');
-  const r=$('results'); r.classList.remove('hidden');
-  const right=results.filter(x=>x.right).length;
-  const pct=Math.round(right/results.length*100);
-  const color=pct>=80?'var(--green)':pct>=50?'var(--amber)':'var(--red)';
-  const C=2*Math.PI*62;
-  let html=`<div class="result-card">
+  const r = $('results');
+  r.classList.remove('hidden');
+
+  const totalEarned = results.reduce((s, x) => s + x.earned, 0);
+  const totalMax = results.reduce((s, x) => s + x.maxPts, 0);
+  const pct = totalMax > 0 ? Math.round(totalEarned / totalMax * 100) : 0;
+  const passed = pct >= passThreshold;
+  const color = passed ? 'var(--green)' : pct >= (passThreshold / 2) ? 'var(--amber)' : 'var(--red)';
+  const C = 2 * Math.PI * 65;
+
+  let html = `<div class="result-card fade-in">
     <div class="score-ring">
-      <svg width="150" height="150"><circle cx="75" cy="75" r="62" fill="none" stroke="var(--surface2)" stroke-width="11"/>
-      <circle cx="75" cy="75" r="62" fill="none" stroke="${color}" stroke-width="11" stroke-linecap="round"
-        stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"/></svg>
-      <div class="num"><b>${pct}%</b><span>${right} / ${results.length}</span></div>
+      <svg width="160" height="160">
+        <circle cx="80" cy="80" r="65" fill="none" stroke="var(--surface2)" stroke-width="10"/>
+        <circle cx="80" cy="80" r="65" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
+          stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct / 100)}"/>
+      </svg>
+      <div class="num"><b>${pct}%</b><span>${totalEarned} / ${totalMax} pts</span></div>
     </div>
-    <div class="result-line">${pct>=80?'Excellent — you are ready! 🎉':pct>=50?'Decent, but review the mistakes below.':'Keep practicing — review the mistakes below.'}</div>
+    <div class="result-badge ${passed ? 'pass' : 'fail'}">${passed ? 'PASS' : 'FAIL'}</div>
+    <div class="result-line">${
+      passed
+        ? `✓ Above the ${passThreshold}% pass mark — well done! 🎉`
+        : `✗ Below the ${passThreshold}% pass mark — review the items below.`
+    }</div>
     <div class="actions" style="margin-top:0">
       <button class="btn ghost" id="home-btn">Home</button>
       <button class="btn" id="retry-btn">Try again</button>
     </div>
   </div>`;
-  const wrong=results.filter(x=>!x.right);
-  if(wrong.length){
-    html+=`<div class="section-label">Mistakes (${wrong.length})</div>`;
-    wrong.forEach(x=>{
+
+  // Review — points lost
+  const wrong = results.filter(x => x.earned < x.maxPts);
+  if (wrong.length) {
+    html += `<div class="section-label review-label">Review — points lost (${wrong.length})</div>`;
+    wrong.forEach(x => {
+      const isPartial = x.earned > 0;
+      const itemClass = isPartial ? 'partial-review' : 'bad';
       let ans;
-      if(x.q.options.length){
-        const corr=x.q.correct.map(i=>x.q.options[i]).join('; ');
-        const yours=x.pickedArr.map(i=>x.q.options[i]).join('; ')||'—';
-        ans=`<span class="u">Your answer: ${escapeHtml(yours)}</span><br><b>Correct: ${escapeHtml(corr)}</b>`;
-      }else{
-        ans=`<span class="u">Your answer: ${escapeHtml(x.userText||'—')}</span><br><b>Correct: ${escapeHtml(x.q.answer||'—')}</b>`;
+      if (x.q.options.length) {
+        const corr = x.q.correct.map(i => x.q.options[i]).join('; ');
+        const yours = (x.pickedArr || []).map(i => x.q.options[i]).join('; ') || '—';
+        ans = `<span class="u">Your answer: ${escapeHtml(yours)}</span><br><b>Correct: ${escapeHtml(corr)}</b>`;
+      } else {
+        ans = `<span class="u">Your answer: ${escapeHtml(x.userText || '—')}</span><br><b>Correct: ${escapeHtml(x.q.answer || '—')}</b>`;
+        if (x.totalKW > 0) {
+          ans += `<div class="score-detail">Matched ${x.matched}/${x.totalKW} key words</div>`;
+        }
       }
-      html+=`<div class="review-item bad"><div class="rq">[Part ${x.q.part}] ${escapeHtml(x.q.q)}</div><div class="ra">${ans}</div></div>`;
+      html += `<div class="review-item ${itemClass}">
+        <div class="rmeta"><span class="chip">Part ${x.q.part}</span><span class="chip pts">${x.earned}/${x.maxPts} pts</span></div>
+        <div class="rq">${escapeHtml(x.q.q)}</div>
+        <div class="ra">${ans}</div>
+      </div>`;
     });
   }
-  r.innerHTML=html;
-  $('home-btn').addEventListener('click',()=>{
-    r.classList.add('hidden'); $('home').classList.remove('hidden'); window.scrollTo(0,0);
+
+  r.innerHTML = html;
+  $('home-btn').addEventListener('click', () => {
+    r.classList.add('hidden');
+    $('home').classList.remove('hidden');
+    window.scrollTo(0, 0);
   });
-  $('retry-btn').addEventListener('click',()=>{
-    r.classList.add('hidden'); $('start').click(); window.scrollTo(0,0);
+  $('retry-btn').addEventListener('click', () => {
+    r.classList.add('hidden');
+    $('start').click();
+    window.scrollTo(0, 0);
   });
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 }
 
-function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 </script>
 </body>
 </html>
