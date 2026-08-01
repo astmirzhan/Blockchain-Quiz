@@ -65,12 +65,6 @@
    "answer": "Decentralized data storage and transmission across networked computers."
   },
   {
-   "q": "Explain distributed ledger technology in a few words. Max. 8 words! [4]",
-   "options": [],
-   "correct": [],
-   "answer": "Decentralized data storage and transmission across networked computers."
-  },
-  {
    "q": "List potential benefits of distributed ledger technology. Max. ten words! [5]",
    "options": [],
    "correct": [],
@@ -223,56 +217,6 @@
    "answer": "No new blocks are added until the issue is resolved."
   },
   {
-   "q": "What is primarily used to manage blockchain transaction data and status?",
-   "options": [
-    "Decentralized applications",
-    "Traditional databases",
-    "Business logic"
-   ],
-   "correct": [
-    2
-   ],
-   "answer": null
-  },
-  {
-   "q": "Blockchain technology is seen as a means to improve which of the following? [2]",
-   "options": [
-    "Supply chain transparency",
-    "Voting systems",
-    "News channels",
-    "None of the above"
-   ],
-   "correct": [
-    0,
-    1
-   ],
-   "answer": null
-  },
-  {
-   "q": "Why do many organizations prefer private blockchain systems? Max. six words![4]",
-   "options": [],
-   "correct": [],
-   "answer": "Control over access and customization."
-  },
-  {
-   "q": "What fundamental aspect does blockchain provide for business transactions? [4]",
-   "options": [],
-   "correct": [],
-   "answer": "Trust and robust transaction processing."
-  },
-  {
-   "q": "What is primarily used to manage blockchain transaction data and status? [1]",
-   "options": [
-    "Decentralized applications",
-    "Traditional databases",
-    "Business logic"
-   ],
-   "correct": [
-    2
-   ],
-   "answer": null
-  },
-  {
    "q": "What are the primary advantages of decentralized systems compared to centralized ones? [2]",
    "options": [
     "Higher coordination effort",
@@ -376,18 +320,6 @@
     "The anonymity of transactions",
     "The physical nature of digital assets",
     "The time delay in updating and synchronizing transaction information"
-   ],
-   "correct": [
-    2
-   ],
-   "answer": null
-  },
-  {
-   "q": "What is essential for proof of ownership in blockchain technology? [1]",
-   "options": [
-    "Identification of the object only",
-    "Assignment of the owner to the object only",
-    "Identification of the owner and the object"
    ],
    "correct": [
     2
